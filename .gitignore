@@ -1,0 +1,14 @@
+a.out
+arcade
+*.sh
+*.log
+tmp/
+lib/
+.vscode/
+compile*
+log*
+*.o
+*.so
+*.a
+test_manuel.cpp
+test.cpp
