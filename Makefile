@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-.SILENCE: all core graphics game clean re
+.SILENCE: all core graphics games clean re
 
 CXX = g++
 CXXFLAGS = -I./includes -fPIC -fno-gnu-unique -g
@@ -22,7 +22,7 @@ GRAPHICS_DIR = graphics
 GAME_DIR = games
 LIB_DIR = lib
 
-SRC = 	main.cpp \
+SRC = 	$(SRC_DIR)/main.cpp \
 		$(SRC_DIR)/Core.cpp \
 		$(SRC_DIR)/utils/error.cpp
 
@@ -58,22 +58,22 @@ core: $(SRC)
 
 graphicals: $(NCURSES_SRC) $(SFML_SRC) $(SDL_SRC)
 	mkdir -p $(LIB_DIR)
-##	$(CXX) -shared -o $(NCURSES_LIB) $(NCURSES_SRC) $(CXXFLAGS) $(NCURSESFLAGS)
+	$(CXX) -shared -o $(NCURSES_LIB) $(NCURSES_SRC) $(CXXFLAGS) $(NCURSESFLAGS)
 	$(CXX) -shared -o $(SFML_LIB) $(SFML_SRC) $(CXXFLAGS) $(SFMLFLAGS)
 	$(CXX) -shared -o $(SDL_LIB) $(SDL_SRC) $(CXXFLAGS) $(SDLFLAGS)
 
-games: $(SNAKE_SRC)
+games: $(SNAKE_SRC) $(MINES_SRC)
 	mkdir -p $(LIB_DIR)
 	$(CXX) -shared -o $(SNAKE_LIB) $(SNAKE_SRC) $(CXXFLAGS)
 	$(CXX) -shared -o $(MINES_LIB) $(MINES_SRC) $(CXXFLAGS)
 
 clean:
-	rm -f $(NCURSES_LIB)
+	# rm -f $(NCURSES_LIB) $(SFML_LIB) $(SDL_LIB) $(SNAKE_LIB) $(MINES_LIB)
 
 fclean: clean
-	rm -f $(NAME) lib/*.so
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all core graphics game clean re
+.PHONY: all core graphics games clean re
 
